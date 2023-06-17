@@ -1,6 +1,7 @@
 package com.example.eventify
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,10 +9,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eventify.databinding.ActivityMainBinding
+import com.example.eventify.db.EventifyDatabase
+import com.example.eventify.db.model.Category
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var eventifyDatabase: EventifyDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,5 +36,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        eventifyDatabase = EventifyDatabase.getInstance(applicationContext)
+        /*eventifyDatabase.getCategoryDao().insert(
+            Category(0, "Work")
+        )*/
+        val categories = eventifyDatabase.getCategoryDao().getAllCategories()
+        Log.i("ETF", categories.toString());
     }
 }
