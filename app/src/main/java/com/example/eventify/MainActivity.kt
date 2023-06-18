@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var eventifyDatabase: EventifyDatabase
-    private var activities: ArrayList<Activity> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,27 +41,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        /* ======================================= Rad sa listom aktivnosti =================================*/
-        fillList()
-        // Step 1: Find the reference to the RecyclerView using its ID and assign it to a variable.
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewActivities)
-        // Step 2: Create an instance of the EventAdapter and pass the necessary parameters.
-        val itemClickListener = object : ActivityAdapter.OnItemClickListener {
-            override fun onItemClick(activity: Activity) {
-                Toast.makeText(
-                    applicationContext,
-                    "Clicked on: ${activity.name}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-        val adapter = ActivityAdapter(activities, itemClickListener)
-
-        // Step 3: Set the adapter to the RecyclerView.
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        /*  ======================================= Rad sa listom aktivnosti ================================= */
-
 
         eventifyDatabase = EventifyDatabase.getInstance(applicationContext)
         /*eventifyDatabase.getCategoryDao().insert(
@@ -72,12 +50,5 @@ class MainActivity : AppCompatActivity() {
 
 
         Log.i("ETF", categories.toString());
-    }
-
-    private fun fillList() {
-        for (i in 0 until 50) {
-            val item = Activity(0, "Naslov ${i + 1}", "Description", "Location", "Date", 0)
-            activities.add(item)
-        }
     }
 }
