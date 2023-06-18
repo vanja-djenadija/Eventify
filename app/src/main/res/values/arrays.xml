@@ -1,12 +1,27 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <!-- Language Preference -->
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>Serbian</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="language_values">
+        <item>en</item>
+        <item>sr</item>
+    </string-array>
+
+    <!-- Notification Preference -->
+    <string-array name="notification_entries">
+        <item>Off</item>
+        <item>Hour before</item>
+        <item>Day before</item>
+        <item>Week before</item>
+    </string-array>
+
+    <string-array name="notification_values">
+        <item>off</item>
+        <item>hour_before</item>
+        <item>day_before</item>
+        <item>week_before</item>
     </string-array>
 </resources>
