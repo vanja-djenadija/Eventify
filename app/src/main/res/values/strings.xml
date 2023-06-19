@@ -16,4 +16,15 @@
 
     <string name="search">Search</string>
     <string name="add_event">Add event</string>
+    <string name="pick_date" >Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="pick_location">Pick location</string>
+    <string name="add_photo">Add photo</string>
+
+    <!-- Add photo options -->
+    <string name="bottom_sheet_option_camera">Use Camera</string>
+    <string name="bottom_sheet_option_gallery">Upload from Gallery</string>
+    <string name="bottom_sheet_option_url">Upload from Internet</string>
+    <string name="bottom_sheet_option_heading">Add Photo</string>
+    <string name="map">Map</string>
 </resources>
