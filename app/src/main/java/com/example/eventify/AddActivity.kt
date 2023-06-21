@@ -27,11 +27,7 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun showLocationPickerDialog(view: View) {
-        val mapsFragment = MapsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, mapsFragment)
-            .addToBackStack("fragment_maps")
-            .commit()
+
     }
 
     fun showAddPhotoBottomDialog(view: View) {
