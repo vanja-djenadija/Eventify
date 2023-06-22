@@ -16,7 +16,7 @@
         android:id="@+id/saveLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Location"
+        android:text="@string/save_location_button_text"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp_16"

@@ -1,8 +1,8 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/language_settings_title">
+    <PreferenceCategory app:title="@string/language_settings_title" app:icon="@drawable/translate">
         <ListPreference
-            app:defaultValue="en"
+            app:defaultValue="@string/language_preference_default"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
             app:key="language"
@@ -10,7 +10,7 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/notification_settings_title">
+    <PreferenceCategory app:title="@string/notification_settings_title" app:icon="@drawable/notifications">
         <ListPreference
             app:defaultValue="day_before"
             app:entries="@array/notification_entries"

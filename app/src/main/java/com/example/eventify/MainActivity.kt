@@ -1,21 +1,21 @@
 package com.example.eventify
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.preference.PreferenceManager
 import com.example.eventify.databinding.ActivityMainBinding
 import com.example.eventify.db.EventifyDatabase
-import com.example.eventify.db.model.Activity
-import com.example.eventify.db.model.Category
-import com.example.eventify.ui.home.ActivityAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,7 +48,28 @@ class MainActivity : AppCompatActivity() {
         )*/
         val categories = eventifyDatabase.getCategoryDao().getAllCategories()
 
+        // Language
+        setLocale(baseContext)
 
         Log.i("ETF", categories.toString());
+    }
+
+    private fun setLocale(context: Context) {
+        val sharedPreferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context)
+        val language = sharedPreferences.getString(
+            "language",
+            context.resources.getString(R.string.language_preference_default)
+        )
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config: Configuration = context.resources.configuration
+        config.setLocale(locale)
+        context.resources.updateConfiguration(config, context.resources.displayMetrics)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        setLocale(base)
+        super.attachBaseContext(base)
     }
 }

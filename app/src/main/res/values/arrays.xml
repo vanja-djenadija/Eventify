@@ -12,10 +12,10 @@
 
     <!-- Notification Preference -->
     <string-array name="notification_entries">
-        <item>Off</item>
-        <item>Hour before</item>
-        <item>Day before</item>
-        <item>Week before</item>
+        <item>@string/notifications_off</item>
+        <item>@string/notifications_hour_before</item>
+        <item>@string/notifications_day_before</item>
+        <item>@string/notifications_week_before</item>
     </string-array>
 
     <string-array name="notification_values">

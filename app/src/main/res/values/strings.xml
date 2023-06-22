@@ -13,6 +13,10 @@
 
     <!-- Notification Preferences -->
     <string name="notification_title">Notification period</string>
+    <string name="notifications_off">Off</string>
+    <string name="notifications_hour_before">Hour before</string>
+    <string name="notifications_day_before">Day before</string>
+    <string name="notifications_week_before">Week before</string>
 
     <string name="search">Search</string>
     <string name="add_event">Add event</string>
@@ -27,4 +31,10 @@
     <string name="bottom_sheet_option_url">Upload from Internet</string>
     <string name="bottom_sheet_option_heading">Add Photo</string>
     <string name="title_activity_maps">Map</string>
+    <string name="language_preference_key" translatable="false">language</string>
+    <string name="language_preference_default" translatable="false">en</string>
+    <string name="save_location_button_text">Save location</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
 </resources>
