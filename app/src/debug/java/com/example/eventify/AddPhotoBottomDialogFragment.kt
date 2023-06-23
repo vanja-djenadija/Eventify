@@ -25,6 +25,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var cameraLauncher: ActivityResultLauncher<Uri>
     private lateinit var carousel: ImageCarousel
+    private lateinit var startGallery: ActivityResultLauncher<Intent>
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -37,6 +38,27 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         val cameraTextView = view.findViewById<TextView>(R.id.tv_btn_add_photo_camera)
         val galleryTextView = view.findViewById<TextView>(R.id.tv_btn_add_photo_gallery)
         val urlTextView = view.findViewById<TextView>(R.id.tv_btn_add_photo_url)
+
+        startGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (intent != null) {
+                    val selectedImages = intent.clipData // Use clipData to get multiple selected images
+                    val selectedImage = intent.data // Use data to get a single selected image
+
+                    if (selectedImages != null) {
+                        for (i in 0 until selectedImages.itemCount) {
+                            val imageUri = selectedImages.getItemAt(i).uri
+                            // Add the selected image to the carousel
+                            carousel.addData(CarouselItem(imageUrl = imageUri.toString()))
+                        }
+                    } else if (selectedImage != null) {
+                        // Add the selected image to the carousel
+                        carousel.addData(CarouselItem(imageUrl = selectedImage.toString()))
+                    }
+                }
+            }
+        }
 
         /* Click Listeners for bottom fragment elements */
         cameraTextView.setOnClickListener {
@@ -89,30 +111,6 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startGallery.launch(intent)
     }
-
-    private val startGallery =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val intent = result.data
-                if (intent != null) {
-                    val selectedImages =
-                        intent.clipData // Use clipData to get multiple selected images
-                    val selectedImage = intent.data // Use data to get a single selected image
-
-                    if (selectedImages != null) {
-                        for (i in 0 until selectedImages.itemCount) {
-                            val imageUri = selectedImages.getItemAt(i).uri
-                            // Add the selected image to the carousel
-                            carousel.addData(CarouselItem(imageUrl = imageUri.toString()))
-                        }
-                    } else if (selectedImage != null) {
-                        // Add the selected image to the carousel
-                        carousel.addData(CarouselItem(imageUrl = selectedImage.toString()))
-                    }
-                }
-            }
-        }
-
 
     private fun showUrlInputDialog() {
         val context: Context =
