@@ -1,5 +1,6 @@
 package com.example.eventify
 
+import com.example.eventify.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -82,8 +83,36 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         }
 
     private fun openGallery() {
-
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        startGallery.launch(intent)
     }
+
+    private val startGallery =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (intent != null) {
+                    val selectedImages =
+                        intent.clipData // Use clipData to get multiple selected images
+                    val selectedImage = intent.data // Use data to get a single selected image
+
+                    if (selectedImages != null) {
+                        for (i in 0 until selectedImages.itemCount) {
+                            val imageUri = selectedImages.getItemAt(i).uri
+                            // Add the selected image to the carousel
+                            carousel.addData(CarouselItem(imageUrl = imageUri.toString()))
+                        }
+                    } else if (selectedImage != null) {
+                        // Add the selected image to the carousel
+                        carousel.addData(CarouselItem(imageUrl = selectedImage.toString()))
+                    }
+                }
+            }
+        }
+
 
     private fun showUrlInputDialog() {
         val context: Context =
