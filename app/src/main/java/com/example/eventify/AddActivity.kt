@@ -11,46 +11,33 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.lang.Math.abs
 
 
 class AddActivity : AppCompatActivity() {
-
+    lateinit var carousel: ImageCarousel
     private val MAPS_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_activity)
 
-        // Add your additional logic here
-        val viewPager = findViewById<ViewPager2>(R.id.view_pager)
+        carousel = findViewById(R.id.carousel)
+        // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragment it will be viewLifecycleOwner/getViewLifecycleOwner().
+        carousel.registerLifecycle(lifecycle)
 
-        viewPager.apply {
-            clipChildren = false  // No clipping the left and right items
-            clipToPadding = false  // Show the viewpager in full width without clipping the padding
-            offscreenPageLimit = 3  // Render the left and right items
-            (getChildAt(0) as RecyclerView).overScrollMode =
-                RecyclerView.OVER_SCROLL_NEVER // Remove the scroll effect
-        }
-
-        val demoData = arrayListOf(
-            "Curabitur sit amet rutrum enim, sit amet commodo urna. Nullam nec nisl eget purus vulputate ultrices nec sit amet est. Sed sodales maximus risus sit amet placerat.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet lectus a mi lobortis iaculis. Mauris odio tortor, accumsan vel gravida sit amet, malesuada a tortor.",
-            "Praesent efficitur eleifend eros quis elementum. Vivamus eget nunc ante. Sed sed sodales libero. Nam ipsum lorem, consequat at ipsum sit amet, tempor vulputate nibh.",
-            "Aliquam sodales imperdiet augue at consectetur. Suspendisse dui mauris, tincidunt non auctor quis, facilisis et tellus.",
-            "Ut non tincidunt neque, et sodales ligula. Quisque interdum in dui sit amet sagittis. Curabitur erat magna, maximus quis libero quis, dapibus eleifend orci."
+        val list = arrayListOf(
+            CarouselItem(
+                imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
+                caption = "Photo by Aaron Wu on Unsplash"
+            ), CarouselItem(
+                imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080"
+            )
         )
 
-        viewPager.adapter = CarouselAdapter(demoData)
+        carousel.setData(ArrayList())
 
-        val compositePageTransformer = CompositePageTransformer()
-        compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
-        viewPager.setPageTransformer(compositePageTransformer)
-
-        compositePageTransformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = (0.80f + r * 0.20f)
-        }
-        viewPager.setPageTransformer(compositePageTransformer)
     }
 
     fun showDatePickerDialog(view: View) {
@@ -82,7 +69,7 @@ class AddActivity : AppCompatActivity() {
 
     fun showAddPhotoBottomDialog(view: View) {
         val addPhotoBottomDialogFragment: AddPhotoBottomDialogFragment =
-            AddPhotoBottomDialogFragment.getInstance()
+            AddPhotoBottomDialogFragment.getInstance(carousel)
         addPhotoBottomDialogFragment.show(
             supportFragmentManager,
             "add_photo_dialog_fragment"

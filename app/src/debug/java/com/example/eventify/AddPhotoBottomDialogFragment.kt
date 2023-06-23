@@ -11,19 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.squareup.picasso.Picasso
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 
 class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var cameraLauncher: ActivityResultLauncher<Uri>
+    private lateinit var carousel: ImageCarousel
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -58,9 +58,10 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         @Volatile
         private var addPhotoBottomDialogFragment: AddPhotoBottomDialogFragment? = null
 
-        fun getInstance(): AddPhotoBottomDialogFragment {
+        fun getInstance(carousel: ImageCarousel): AddPhotoBottomDialogFragment {
             return addPhotoBottomDialogFragment ?: synchronized(this) {
-                val instance = AddPhotoBottomDialogFragment()
+                var instance = AddPhotoBottomDialogFragment()
+                instance.carousel = carousel
                 addPhotoBottomDialogFragment = instance
                 instance
             }
@@ -85,7 +86,8 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun showUrlInputDialog() {
-        val context: Context = requireContext()  // Replace 'this' with the appropriate context reference
+        val context: Context =
+            requireContext()  // Replace 'this' with the appropriate context reference
 
         val inputEditText = EditText(context)
         inputEditText.hint = "Enter Image URL"
@@ -104,11 +106,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun loadImageFromUrl(imageUrl: String) {
-        //val imageView: ImageView = myImageView
-
-        /*Picasso.get()
-            .load(imageUrl)
-            .into(imageView)*/
+        carousel.addData(CarouselItem(imageUrl = imageUrl))
     }
 
 }

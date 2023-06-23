@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Eventify</string>
+    <string name="title_home">Početna</string>
+    <string name="title_settings">Podešavanja</string>
+    <string name="title_calendar">Kalendar</string>
+
+    <!-- Preference Titles -->
+    <string name="language_settings_title">Jezici</string>
+    <string name="notification_settings_title">Obavještenja</string>
+
+    <!-- Language Preferences -->
+    <string name="language_title">Tvoj jezik</string>
+
+    <!-- Notification Preferences -->
+    <string name="notification_title">Period obavještenja</string>
+    <string name="notifications_off">Isključene</string>
+    <string name="notifications_hour_before">Sat prije</string>
+    <string name="notifications_day_before">Dan prije</string>
+    <string name="notifications_week_before">Sedmica prije</string>
+
+    <string name="search">Pretraga</string>
+    <string name="add_event">Novi događaj</string>
+    <string name="pick_date" >Izaberi datum</string>
+    <string name="pick_time">Izaberi vrijeme</string>
+    <string name="pick_location">Izaberi lokaciju</string>
+    <string name="add_photo">Dodaj fotografiju</string>
+
+    <!-- Add photo options -->
+    <string name="bottom_sheet_option_camera">Koristi kameru</string>
+    <string name="bottom_sheet_option_gallery">Otpremi iz galerije</string>
+    <string name="bottom_sheet_option_url">Otpremi sa interneta</string>
+    <string name="bottom_sheet_option_heading">Dodaj fotografiju</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="save_location_button_text">Sačuvaj lokaciju</string>
+    <string name="title">Naslov</string>
+    <string name="description">Opis</string>
+</resources>
