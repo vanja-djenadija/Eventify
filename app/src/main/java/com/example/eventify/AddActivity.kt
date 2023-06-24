@@ -48,8 +48,9 @@ class AddActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Do nothing
             }
-
         }
+        // Setting title of activity - localization is not registered from AndroidManifest android:label property
+        supportActionBar?.title = getString(R.string.add_event)
     }
 
     fun showDatePickerDialog(view: View) {

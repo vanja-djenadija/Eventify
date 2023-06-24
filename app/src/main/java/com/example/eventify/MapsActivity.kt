@@ -35,6 +35,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        // Setting title of activity - localization is not registered from AndroidManifest android:label property
+        supportActionBar?.title = getString(R.string.title_activity_maps)
     }
 
     /**
