@@ -2,32 +2,54 @@ package com.example.eventify
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
+import com.example.eventify.db.EventifyDatabase
 import com.google.android.material.button.MaterialButton
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
-import java.lang.Math.abs
 
 
 class AddActivity : AppCompatActivity() {
     lateinit var carousel: ImageCarousel
+    lateinit var activitySpinner: Spinner
     private val MAPS_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_activity)
 
+        /* Setting up image carousel */
         carousel = findViewById(R.id.carousel)
-        // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragment it will be viewLifecycleOwner/getViewLifecycleOwner().
         carousel.registerLifecycle(lifecycle)
         carousel.setData(ArrayList())
 
+        /* Setting up category dropdown/spinner */
+        activitySpinner = findViewById(R.id.activityType)
+        val categoryDao = EventifyDatabase.getInstance(baseContext).getCategoryDao()
+        val categories = categoryDao.getAllCategories()
+        val categoryNames = categories.map { it.name }
+        val adapter = ArrayAdapter(baseContext, android.R.layout.simple_spinner_item, categoryNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        activitySpinner.adapter = adapter
+        activitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                activitySpinner.setSelection(position)
+                // Use the selectedCategoryName as needed
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+
+        }
     }
 
     fun showDatePickerDialog(view: View) {
@@ -67,6 +89,5 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun addActivity(view: View) {}
-
 
 }

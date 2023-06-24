@@ -13,7 +13,11 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.example.eventify.databinding.ActivityMainBinding
 import com.example.eventify.db.EventifyDatabase
+import com.example.eventify.db.model.Category
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 
@@ -43,15 +47,22 @@ class MainActivity : AppCompatActivity() {
 
 
         eventifyDatabase = EventifyDatabase.getInstance(applicationContext)
-        /*eventifyDatabase.getCategoryDao().insert(
-            Category(0, "Work")
-        )*/
-        val categories = eventifyDatabase.getCategoryDao().getAllCategories()
+        populateDatabase()
 
         // Language
         setLocale(baseContext)
+    }
 
-        Log.i("ETF", categories.toString());
+    private fun populateDatabase() {
+        val categoryDao = eventifyDatabase.getCategoryDao()
+        CoroutineScope(Dispatchers.IO).launch {
+            categoryDao.deleteAll()
+            if (eventifyDatabase.getCategoryDao().getAllCategories().isEmpty()) {
+                categoryDao.insert(Category(0, "Work"))
+                categoryDao.insert(Category(1, "Travel"))
+                categoryDao.insert(Category(2, "Leisure"))
+            }
+        }
     }
 
     private fun setLocale(context: Context) {

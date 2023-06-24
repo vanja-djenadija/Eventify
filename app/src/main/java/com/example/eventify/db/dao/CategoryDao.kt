@@ -14,6 +14,7 @@ interface CategoryDao {
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_CATEGORY)
     fun getAllCategories(): List<Category>
-
+    @Query("DELETE FROM " + Constants.TABLE_NAME_CATEGORY)
+    fun deleteAll()
     // Add other necessary queries as needed
 }
