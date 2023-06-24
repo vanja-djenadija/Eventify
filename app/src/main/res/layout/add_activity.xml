@@ -62,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/pickDateButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -72,6 +73,7 @@
             app:icon="@drawable/date" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/pickTimeButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

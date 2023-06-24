@@ -22,4 +22,16 @@ data class Activity(
     @ColumnInfo(name = "location") val location: String,
     @ColumnInfo(name = "time") val time: String,
     @ColumnInfo(name = "category_id") val categoryId: Long
-)
+) {
+    companion object {
+        fun createActivity(
+            name: String,
+            description: String,
+            location: String,
+            time: String,
+            categoryId: Long
+        ): Activity {
+            return Activity(0, name, description, location, time, categoryId)
+        }
+    }
+}
