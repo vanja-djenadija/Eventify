@@ -68,8 +68,9 @@
             android:layout_weight="1"
             android:contentDescription="@string/pick_date"
             android:drawableStart="@drawable/date"
+            android:hint="@string/pick_date"
             android:onClick="showDatePickerDialog"
-            android:text="@string/pick_date"
+            android:textColorHint="@color/material_dynamic_primary100"
             app:icon="@drawable/date" />
 
         <com.google.android.material.button.MaterialButton
@@ -78,8 +79,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/pick_time"
+            android:hint="@string/pick_time"
             android:onClick="showTimePickerDialog"
-            android:text="@string/pick_time"
+            android:textColorHint="@color/material_dynamic_primary100"
             app:icon="@drawable/time" />
 
     </LinearLayout>
@@ -99,9 +101,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/pick_location"
+        android:hint="@string/pick_location"
         android:minHeight="48dp"
         android:onClick="showLocationPickerDialog"
-        android:text="@string/pick_location"
+        android:textColorHint="@color/material_dynamic_primary100"
         app:icon="@drawable/location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
