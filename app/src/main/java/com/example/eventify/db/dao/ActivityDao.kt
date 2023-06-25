@@ -10,13 +10,11 @@ import com.example.eventify.util.Constants
 @Dao
 interface ActivityDao {
     @Insert
-     fun insert(activity: Activity)
+    fun insert(activity: Activity)
 
     @Update
-     fun update(activity: Activity)
+    fun update(activity: Activity)
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_ACTIVITY)
-     fun getAllActivities(): List<Activity>
-
-    // Add other necessary queries as needed
+    fun getAllActivities(): List<Activity>
 }

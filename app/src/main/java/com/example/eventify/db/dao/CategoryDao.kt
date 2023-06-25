@@ -10,11 +10,14 @@ import com.example.eventify.util.Constants
 @Dao
 interface CategoryDao {
     @Insert
-     fun insert(category: Category)
+    fun insert(category: Category)
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_CATEGORY)
-    fun getAllCategories(): List<Category>
+     fun getAllCategories(): List<Category>
+
     @Query("DELETE FROM " + Constants.TABLE_NAME_CATEGORY)
-    fun deleteAll()
-    // Add other necessary queries as needed
+     fun deleteAll()
+
+    @Query("SELECT id FROM category WHERE name = :categoryName")
+     fun getCategoryIdByName(categoryName: String): Long
 }

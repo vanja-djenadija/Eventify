@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -56,11 +55,10 @@ class MainActivity : AppCompatActivity() {
     private fun populateDatabase() {
         val categoryDao = eventifyDatabase.getCategoryDao()
         CoroutineScope(Dispatchers.IO).launch {
-            categoryDao.deleteAll()
             if (eventifyDatabase.getCategoryDao().getAllCategories().isEmpty()) {
-                categoryDao.insert(Category(0, "Work"))
-                categoryDao.insert(Category(1, "Travel"))
-                categoryDao.insert(Category(2, "Leisure"))
+                categoryDao.insert(Category(1, "Work"))
+                categoryDao.insert(Category(2, "Travel"))
+                categoryDao.insert(Category(3, "Leisure"))
             }
         }
     }

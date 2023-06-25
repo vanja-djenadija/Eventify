@@ -36,5 +36,6 @@
     <string name="save_location_button_text">Save location</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="activity_added_successfully">Activity added successfully</string>
 
 </resources>

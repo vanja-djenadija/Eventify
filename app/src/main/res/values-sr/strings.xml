@@ -34,4 +34,5 @@
     <string name="save_location_button_text">Sačuvaj lokaciju</string>
     <string name="title">Naslov</string>
     <string name="description">Opis</string>
+    <string name="activity_added_successfully">Uspješno dodana aktivnost</string>
 </resources>

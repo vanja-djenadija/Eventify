@@ -12,9 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventify.AddActivity
-import com.example.eventify.R
 import com.example.eventify.databinding.FragmentHomeBinding
+import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.model.Activity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -27,16 +30,16 @@ class HomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ActivityAdapter
-    private val activities: ArrayList<Activity> = ArrayList()
+    private var activities: ArrayList<Activity> = ArrayList()
 
     private val itemClickListener = object : ActivityAdapter.OnItemClickListener {
         override fun onItemClick(activity: Activity) {
-            var toast =
+            val toast =
                 Toast.makeText(
                     requireContext(),
                     "Clicked on: ${activity.name}",
                     Toast.LENGTH_SHORT
-                );
+                )
             toast.setGravity(Gravity.TOP, 0, 0) // TODO Change position
             toast.show()
         }
@@ -50,13 +53,6 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         /* RecyclerView */
-        if (activities.isEmpty()) {
-            for (i in 0 until 30) {
-                val item = Activity(0, "Odazak u nacionalni klub", "Opis", "Lokacija", "Datum", 0)
-                activities.add(item)
-            }
-        }
-
         recyclerView = binding.recyclerViewActivities
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ActivityAdapter(activities, itemClickListener)
@@ -68,6 +64,19 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        refreshActivities()
+    }
+
+    private fun refreshActivities() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val activityDao = EventifyDatabase.getInstance(requireContext()).getActivityDao()
+            activities = activityDao.getAllActivities() as ArrayList<Activity>
+            adapter.updateData(activities)
+        }
     }
 
     override fun onDestroyView() {

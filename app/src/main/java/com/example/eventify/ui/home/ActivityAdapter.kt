@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventify.R
 import com.example.eventify.db.model.Activity
 
-class ActivityAdapter(private val items: List<Activity>, private val listener: OnItemClickListener) :
+class ActivityAdapter(
+    private var items: List<Activity>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<ActivityAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -43,5 +46,10 @@ class ActivityAdapter(private val items: List<Activity>, private val listener: O
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun updateData(newActivities: List<Activity>) {
+        items = newActivities
+        notifyDataSetChanged()
     }
 }

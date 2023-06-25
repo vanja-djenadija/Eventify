@@ -12,7 +12,7 @@ import com.example.eventify.util.Constants
         entity = Category::class,
         parentColumns = ["id"],
         childColumns = ["category_id"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.NO_ACTION // Watch out!
     )]
 )
 data class Activity(
