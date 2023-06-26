@@ -37,4 +37,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddActivityCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/add_event"
+        android:src="@drawable/add"
+        android:tint="@android:color/white"
+        app:backgroundTint="#FF9800"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom_navigation_calendar"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

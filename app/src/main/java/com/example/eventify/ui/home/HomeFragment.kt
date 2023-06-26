@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private var activities: ArrayList<Activity> = ArrayList()
     private var filteredActivities: ArrayList<Activity> = ArrayList()
 
-    private val itemClickListener = object : ActivityAdapter.OnItemClickListener {
+    private val itemClickListener = object : ActivityAdapter.OnItemClickListener { // TODO: Open activity details
         override fun onItemClick(activity: Activity) {
             val toast =
                 Toast.makeText(
@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 // Call a method to perform filtering based on the new text
-                filterActivities(newText)
+                filterActivitiesByName(newText)
                 return true
             }
         })
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
         refreshActivities()
     }
 
-    private fun filterActivities(query: String) {
+    private fun filterActivitiesByName(query: String) {
         CoroutineScope(Dispatchers.Main).launch {
             val activityDao = EventifyDatabase.getInstance(requireContext()).getActivityDao()
             activities = activityDao.getActivitiesByName(query) as ArrayList<Activity>
@@ -107,10 +107,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun addActivity(view: View) {
-        val intent = Intent(requireContext(), AddActivity::class.java)
-        startActivity(intent)
     }
 }
