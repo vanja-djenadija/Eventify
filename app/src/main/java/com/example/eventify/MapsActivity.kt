@@ -1,22 +1,24 @@
 package com.example.eventify
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
-import androidx.appcompat.app.AppCompatActivity
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.eventify.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.example.eventify.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
@@ -68,18 +70,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     override fun onMarkerDragEnd(marker: Marker) {
-        val geocoder = Geocoder(this)
-        val position = marker.position
-        var addressList: MutableList<Address>? =
-            geocoder.getFromLocation(position.latitude, position.longitude, 1)
+        if (isNetworkAvailable(this)) {
+            val geocoder = Geocoder(this)
+            val position = marker.position
+            var addressList: MutableList<Address>? =
+                geocoder.getFromLocation(position.latitude, position.longitude, 1)
 
-        if (addressList != null) {
-            if (addressList.isNotEmpty()) {
-                val address: Address = addressList[0]
-                val locationName: String = address.getAddressLine(0)
-                selectedLocationName = locationName
+            if (addressList != null) {
+                if (addressList.isNotEmpty()) {
+                    val address: Address = addressList[0]
+                    val locationName: String = address.getAddressLine(0)
+                    selectedLocationName = locationName
+                }
             }
+        } else {
+            Toast.makeText(
+                this,
+                getString(R.string.internet_connection_not_available),
+                Toast.LENGTH_SHORT
+            ).show()
         }
+
     }
 
     override fun onMarkerDragStart(marker: Marker) {
@@ -87,4 +98,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onMarkerDrag(marker: Marker) {
     }
+
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+    }
+
 }
