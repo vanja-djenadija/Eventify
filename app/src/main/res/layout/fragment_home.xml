@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/search_bar"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/activitySearchView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:contentDescription="@string/search"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/dp_8"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar">
+        app:layout_constraintTop_toBottomOf="@+id/activitySearchView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewActivities"

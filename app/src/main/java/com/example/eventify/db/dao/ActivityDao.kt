@@ -15,6 +15,9 @@ interface ActivityDao {
     @Update
     fun update(activity: Activity)
 
-    @Query("SELECT * FROM " + Constants.TABLE_NAME_ACTIVITY)
+    @Query("SELECT * FROM " + Constants.TABLE_NAME_ACTIVITY + " ORDER BY time ASC")
     fun getAllActivities(): List<Activity>
+
+    @Query("SELECT * FROM " + Constants.TABLE_NAME_ACTIVITY + " WHERE name LIKE '%' || :nameFilter || '%' ORDER BY time ASC")
+    fun getActivitiesByName(nameFilter: String): List<Activity>
 }

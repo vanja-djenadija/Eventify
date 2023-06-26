@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ActivityAdapter
     private var activities: ArrayList<Activity> = ArrayList()
+    private var filteredActivities: ArrayList<Activity> = ArrayList()
 
     private val itemClickListener = object : ActivityAdapter.OnItemClickListener {
         override fun onItemClick(activity: Activity) {
@@ -52,23 +54,46 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        /* SearchView */
+        val searchView = binding.activitySearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // Call a method to perform filtering based on the new text
+                filterActivities(newText)
+                return true
+            }
+        })
+
         /* RecyclerView */
         recyclerView = binding.recyclerViewActivities
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ActivityAdapter(activities, itemClickListener, requireContext())
         recyclerView.adapter = adapter
-        /* RecyclerView */
 
+        /* Add activity button listener */
         binding.fabAddActivity.setOnClickListener {
             val intent = Intent(requireContext(), AddActivity::class.java)
             startActivity(intent)
         }
+
         return root
     }
 
     override fun onStart() {
         super.onStart()
         refreshActivities()
+    }
+
+    private fun filterActivities(query: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val activityDao = EventifyDatabase.getInstance(requireContext()).getActivityDao()
+            activities = activityDao.getActivitiesByName(query) as ArrayList<Activity>
+            adapter.updateData(activities)
+        }
     }
 
     private fun refreshActivities() {
