@@ -14,6 +14,7 @@ import com.example.eventify.db.model.Activity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +34,16 @@ class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_activity)
+
+        /* Adding on click listeners for date, time and location */
+        val dateTextView = findViewById<MaterialTextView>(R.id.pickDateTextView)
+        dateTextView.setOnClickListener { view -> showDatePickerDialog(view) }
+
+        val timeTextView = findViewById<MaterialTextView>(R.id.pickTimeTextView)
+        timeTextView.setOnClickListener { view -> showTimePickerDialog(view) }
+
+        val locationTextView = findViewById<MaterialTextView>(R.id.pickLocationTextView)
+        locationTextView.setOnClickListener { view -> showLocationPickerDialog(view) }
 
         /* Setting up image carousel */
         carousel = findViewById(R.id.carousel)
@@ -73,14 +84,14 @@ class AddActivity : AppCompatActivity() {
 
     fun showDatePickerDialog(view: View) {
         val newFragment = DatePickerFragment()
-        newFragment.setButton(view as MaterialButton)
+        newFragment.setTextView(view as MaterialTextView)
         newFragment.show(supportFragmentManager, "datePicker")
     }
 
     fun showTimePickerDialog(view: View) {
         val newFragment = TimePickerFragment()
-        newFragment.setButton(view as MaterialButton)
-        newFragment.show(supportFragmentManager, "datePicker")
+        newFragment.setTextView(view as MaterialTextView)
+        newFragment.show(supportFragmentManager, "timePicker")
     }
 
     fun showLocationPickerDialog(view: View) {
@@ -93,7 +104,7 @@ class AddActivity : AppCompatActivity() {
         if (requestCode == MAPS_CODE && resultCode == android.app.Activity.RESULT_OK) {
             val selectedLocationName = data?.getStringExtra("selectedLocationName")
             if (!selectedLocationName.isNullOrEmpty()) {
-                findViewById<MaterialButton>(R.id.locationButton).text = selectedLocationName
+                findViewById<MaterialTextView>(R.id.pickLocationTextView).text = selectedLocationName
             }
         }
     }
@@ -107,13 +118,51 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun addActivity(view: View) {
-        val title = findViewById<TextInputEditText>(R.id.editTextTitle).text.toString()
-        val description = findViewById<TextInputEditText>(R.id.editTextDescription).text.toString()
-        val location = findViewById<MaterialButton>(R.id.locationButton).text.toString()
-        val time = findViewById<MaterialButton>(R.id.pickTimeButton).text.toString()
-        val date = findViewById<MaterialButton>(R.id.pickDateButton).text.toString()
+        val title = findViewById<TextInputEditText>(R.id.editTextTitle).text.toString().trim()
+        val description =
+            findViewById<TextInputEditText>(R.id.editTextDescription).text.toString().trim()
+        val location =
+            findViewById<MaterialTextView>(R.id.pickLocationTextView).text.toString().trim()
+        val time = findViewById<MaterialTextView>(R.id.pickTimeTextView).text.toString().trim()
+        val date = findViewById<MaterialTextView>(R.id.pickDateTextView).text.toString().trim()
         val category = findViewById<Spinner>(R.id.activityType).selectedItem
         val categoryId = categoryDao.getCategoryIdByName(category as String)
+        if (title.isEmpty()) {
+            findViewById<TextInputEditText>(R.id.editTextTitle).error =
+                getString(R.string.field_is_required)
+            return
+        }
+        if (description.isEmpty()) {
+            findViewById<TextInputEditText>(R.id.editTextDescription).error =
+                getString(R.string.field_is_required)
+            return
+        }
+        if (date.isEmpty()) {
+            findViewById<MaterialTextView>(R.id.pickDateTextView).error =
+                getString(R.string.field_is_required)
+            return
+        } else {
+            findViewById<MaterialTextView>(R.id.pickDateTextView).error = null
+        }
+        if (time.isEmpty()) {
+            findViewById<MaterialTextView>(R.id.pickTimeTextView).error =
+                getString(R.string.field_is_required)
+            return
+        } else {
+            findViewById<MaterialTextView>(R.id.pickTimeTextView).error = null
+        }
+        if (category == null) {
+            Toast.makeText(this, getString(R.string.select_category), Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (location.isEmpty()) {
+            findViewById<MaterialTextView>(R.id.pickLocationTextView).error =
+                getString(R.string.field_is_required)
+            return
+        } else {
+            findViewById<MaterialTextView>(R.id.pickLocationTextView).error = null
+        }
+
         // Create a new activity object
         val activity = Activity.createActivity(
             title, description, location, "$date $time", categoryId

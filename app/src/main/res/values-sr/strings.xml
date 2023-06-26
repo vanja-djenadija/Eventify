@@ -35,4 +35,7 @@
     <string name="title">Naslov</string>
     <string name="description">Opis</string>
     <string name="activity_added_successfully">Uspješno dodana aktivnost</string>
+    <string name="required_field">Field is required</string>
+    <string name="field_is_required">Field is required</string>
+    <string name="select_category">Select category</string>
 </resources>

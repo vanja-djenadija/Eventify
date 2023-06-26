@@ -1,21 +1,17 @@
 package com.example.eventify
 
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.button.MaterialButton
-import java.text.SimpleDateFormat
+import com.google.android.material.textview.MaterialTextView
 import java.util.Calendar
-import java.util.Locale
 
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
-    private lateinit var button: MaterialButton
+    private lateinit var timeTextView: MaterialTextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current time as the default values for the picker
@@ -30,10 +26,10 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         // Do something with the time chosen by the user
         val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
-        button.text = selectedTime
+        timeTextView.text = selectedTime
     }
 
-    fun setButton(button: MaterialButton) {
-        this.button = button
+    fun setTextView(textView: MaterialTextView) {
+        this.timeTextView = textView
     }
 }

@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         /* RecyclerView */
         recyclerView = binding.recyclerViewActivities
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ActivityAdapter(activities, itemClickListener)
+        adapter = ActivityAdapter(activities, itemClickListener, requireContext())
         recyclerView.adapter = adapter
         /* RecyclerView */
 
