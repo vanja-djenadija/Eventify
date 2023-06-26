@@ -2,13 +2,11 @@ package com.example.eventify.ui.calendar
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +15,7 @@ import com.example.eventify.AddActivity
 import com.example.eventify.databinding.FragmentCalendarBinding
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.model.Activity
+import com.example.eventify.ui.ActivityDetailsActivity
 import com.example.eventify.ui.home.ActivityAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,10 +39,11 @@ class CalendarFragment : Fragment() {
     private var activities: ArrayList<Activity> = ArrayList()
 
     private val itemClickListener = object : ActivityAdapter.OnItemClickListener {
-        override fun onItemClick(activity: Activity) { // TODO: Open activity details
-            Toast.makeText(
-                requireContext(), "Clicked on: ${activity.name}", Toast.LENGTH_LONG
-            ).show()
+        override fun onItemClick(activity: Activity) {
+            // Create an intent to start the ActivityDetailsActivity
+            val intent = Intent(requireContext(), ActivityDetailsActivity::class.java)
+            intent.putExtra("activity", activity)
+            startActivity(intent)
         }
     }
 

@@ -10,7 +10,7 @@ import com.example.eventify.util.Constants
 @Dao
 interface ActivityDao {
     @Insert
-    fun insert(activity: Activity)
+    fun insert(activity: Activity) : Long
 
     @Update
     fun update(activity: Activity)

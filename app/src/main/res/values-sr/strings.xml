@@ -40,4 +40,10 @@
     <string name="search_hint">"Pretraga"</string>
     <string name="internet_connection_not_available">Internet povezanost nije dostupna</string>
     <string name="there_are_no_activities">Nema aktivnosti.</string>
+    <string name="title_activity_details">Detalji aktivnosti</string>
+    <string name="category">Tip</string>
+    <string name="activity_title">Nalov aktivnosti</string>
+    <string name="activity_description">Opis aktivnosti</string>
+    <string name="activity_date">Datum aktivnosti</string>
+    <string name="activity_location">Mjesto aktivnosti</string>
 </resources>

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.dao.CategoryDao
 import com.example.eventify.db.model.Activity
-import com.google.android.material.button.MaterialButton
+import com.example.eventify.db.model.Image
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
@@ -168,10 +168,16 @@ class AddActivity : AppCompatActivity() {
             title, description, location, "$date $time", categoryId
         ) // TODO: date format, add images for leisure
         val activityDao = EventifyDatabase.getInstance(baseContext).getActivityDao()
-
+        val imageDao = EventifyDatabase.getInstance(baseContext).getImageDao()
         // Use a coroutine to insert the activity in a non-blocking way
         CoroutineScope(Dispatchers.IO).launch {
-            activityDao.insert(activity)
+            val activityId = activityDao.insert(activity)
+            for (carouselItem in carousel.getData()!!) {
+                val image = carouselItem.imageUrl?.let { Image.createImage(it, activityId) }
+                if (image != null) {
+                    imageDao.insert(image)
+                }
+            }
         }
         // Show a toast or perform any other action to indicate the activity is added
         Toast.makeText(this, getString(R.string.activity_added_successfully), Toast.LENGTH_SHORT)

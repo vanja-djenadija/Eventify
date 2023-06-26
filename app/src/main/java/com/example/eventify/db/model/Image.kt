@@ -19,4 +19,13 @@ data class Image(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val url: String,
     @ColumnInfo(name = "activity_id", index = true) val activityId: Long
-)
+) {
+    companion object {
+        fun createImage(
+            url: String,
+            activityId: Long
+        ): Image {
+            return Image(0, url, activityId)
+        }
+    }
+}

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.eventify.util.Constants
+import java.io.Serializable
 
 @Entity(
     tableName = Constants.TABLE_NAME_ACTIVITY,
@@ -22,7 +23,7 @@ data class Activity(
     @ColumnInfo(name = "location") val location: String,
     @ColumnInfo(name = "time") val time: String,
     @ColumnInfo(name = "category_id") val categoryId: Long
-) {
+) : Serializable {
     companion object {
         fun createActivity(
             name: String,

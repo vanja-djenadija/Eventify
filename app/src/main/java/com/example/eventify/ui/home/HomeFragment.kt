@@ -2,11 +2,9 @@ package com.example.eventify.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +14,7 @@ import com.example.eventify.AddActivity
 import com.example.eventify.databinding.FragmentHomeBinding
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.model.Activity
+import com.example.eventify.ui.ActivityDetailsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,16 +32,12 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ActivityAdapter
     private var activities: ArrayList<Activity> = ArrayList()
 
-    private val itemClickListener = object : ActivityAdapter.OnItemClickListener { // TODO: Open activity details
+    private val itemClickListener = object : ActivityAdapter.OnItemClickListener {
         override fun onItemClick(activity: Activity) {
-            val toast =
-                Toast.makeText(
-                    requireContext(),
-                    "Clicked on: ${activity.name}",
-                    Toast.LENGTH_SHORT
-                )
-            toast.setGravity(Gravity.TOP, 0, 0) // TODO Change position
-            toast.show()
+            // Create an intent to start the ActivityDetailsActivity
+            val intent = Intent(requireContext(), ActivityDetailsActivity::class.java)
+            intent.putExtra("activity", activity)
+            startActivity(intent)
         }
     }
 
