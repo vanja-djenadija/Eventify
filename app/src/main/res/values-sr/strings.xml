@@ -39,4 +39,5 @@
     <string name="select_category">Izaberi kategoriju</string>
     <string name="search_hint">"Pretraga"</string>
     <string name="internet_connection_not_available">Internet povezanost nije dostupna</string>
+    <string name="there_are_no_activities">Nema aktivnosti.</string>
 </resources>

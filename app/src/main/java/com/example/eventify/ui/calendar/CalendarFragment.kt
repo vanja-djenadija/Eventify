@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,7 @@ class CalendarFragment : Fragment() {
     private var _binding: FragmentCalendarBinding? = null
     private var selectedDate: String =
         SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().time)
+    private lateinit var textViewNoActivities: TextView
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -58,11 +60,13 @@ class CalendarFragment : Fragment() {
 
         /* CalendarView */
         val calendarView: CalendarView = binding.calendarView
-        Log.i("DATUM", selectedDate)
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = String.format("%02d-%02d-%04d", dayOfMonth, month + 1, year)
             refreshActivities(selectedDate)
         }
+
+        /* No activities TextView */
+        textViewNoActivities = binding.textViewNoActivities
 
         /* RecyclerView */
         recyclerView = binding.recyclerViewCalendarActivities
@@ -90,6 +94,14 @@ class CalendarFragment : Fragment() {
             val activityDao = EventifyDatabase.getInstance(requireContext()).getActivityDao()
             activities = activityDao.getAllActivitiesByDate(date) as ArrayList<Activity>
             adapter.updateData(activities)
+            // Check if the activity list is empty
+            if (activities.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                textViewNoActivities.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                textViewNoActivities.visibility = View.GONE
+            }
         }
     }
 

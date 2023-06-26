@@ -32,7 +32,6 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ActivityAdapter
     private var activities: ArrayList<Activity> = ArrayList()
-    private var filteredActivities: ArrayList<Activity> = ArrayList()
 
     private val itemClickListener = object : ActivityAdapter.OnItemClickListener { // TODO: Open activity details
         override fun onItemClick(activity: Activity) {
