@@ -1,10 +1,14 @@
 package com.example.eventify
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -12,18 +16,24 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.example.eventify.databinding.ActivityMainBinding
 import com.example.eventify.db.EventifyDatabase
+import com.example.eventify.db.model.Activity
 import com.example.eventify.db.model.Category
+import com.example.eventify.util.NotificationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
 
+    private val PERMISSION_REQUEST_CODE = 111
     private lateinit var binding: ActivityMainBinding
     private lateinit var eventifyDatabase: EventifyDatabase
+    private lateinit var notificationHelper: NotificationHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +60,80 @@ class MainActivity : AppCompatActivity() {
 
         // Language
         setLocale(baseContext)
+
+        // Notifications
+        notificationHelper = NotificationHelper(this)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
+        val optionString = sharedPreferences.getString("notification", "2")
+        val option: NotificationOption = when (optionString) {
+            "0" -> NotificationOption.OFF
+            "1" -> NotificationOption.HOUR_BEFORE
+            "2" -> NotificationOption.DAY_BEFORE
+            "3" -> NotificationOption.WEEK_BEFORE
+            else -> NotificationOption.OFF // Set a default value for invalid preferences
+        }
+
+        //val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
+        //val optionString = sharedPreferences.getString("notification", "2")
+        //Log.i("ETF", optionString.toString())
+        //val option: NotificationOption = NotificationOption.valueOf(optionString!!.toUpperCase())
+        if (option !== NotificationOption.OFF) {
+            if (hasNotificationPermission()) {
+                sendNotification(option)
+            } else {
+                requestNotificationPermission()
+            }
+        }
+    }
+
+    private fun hasNotificationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestNotificationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                val optionString = sharedPreferences.getString(
+                    resources.getString(R.string.notification_preference_key),
+                    resources.getString(R.string.notification_preference_default)
+                )
+                val option: NotificationOption =
+                    NotificationOption.valueOf(optionString!!.toUpperCase())
+                if (option !== NotificationOption.OFF) {
+                    sendNotification(option)
+                }
+            } else {
+                // Permission denied, handle accordingly
+            }
+        }
+    }
+
+    private fun sendNotification(option: NotificationOption) {
+        val upcomingActivities = getUpcomingActivities(option)
+        Log.i("UPCOMING", upcomingActivities.toString())
+        for (activity in upcomingActivities) {
+            val title = activity.name
+            val message = activity.time
+
+            notificationHelper.showNotification(title, message)
+        }
     }
 
     private fun populateDatabase() {
@@ -81,4 +165,38 @@ class MainActivity : AppCompatActivity() {
         setLocale(base)
         super.attachBaseContext(base)
     }
+
+    private fun getUpcomingActivities(option: NotificationOption): List<Activity> {
+
+        val calendar = Calendar.getInstance()
+        val startDate = Calendar.getInstance().time
+        Log.i("ETF", SimpleDateFormat("dd-MM-yyyy HH:mm").format(startDate))
+        when (option) {
+            NotificationOption.HOUR_BEFORE -> calendar.add(Calendar.HOUR, 1)
+            NotificationOption.DAY_BEFORE -> calendar.add(Calendar.DAY_OF_YEAR, 1)
+            NotificationOption.WEEK_BEFORE -> calendar.add(Calendar.DAY_OF_YEAR, 7)
+            else -> {}
+        }
+        val endDate = calendar.time
+        Log.i("ETF", SimpleDateFormat("dd-MM-yyyy HH:mm").format(endDate))
+        val upcomingActivites: List<Activity> =
+            eventifyDatabase.getActivityDao().getActivitiesByDateRange(
+                SimpleDateFormat("dd-MM-yyyy HH:mm").format(startDate),
+                SimpleDateFormat("dd-MM-yyyy HH:mm").format(endDate)
+            )
+        for (activ in upcomingActivites) {
+            Log.i("ETF", activ.toString())
+        }
+        return upcomingActivites
+    }
+
+    fun handleNotificationPreferenceChange(newOption: NotificationOption) {
+        Log.i("ETF", "handleNotificationPreferenceChange")
+        if (hasNotificationPermission()) {
+            sendNotification(newOption)
+        } else {
+            requestNotificationPermission()
+        }
+    }
+
 }

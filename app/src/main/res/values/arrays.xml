@@ -19,9 +19,9 @@
     </string-array>
 
     <string-array name="notification_values">
-        <item>off</item>
-        <item>hour_before</item>
-        <item>day_before</item>
-        <item>week_before</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>

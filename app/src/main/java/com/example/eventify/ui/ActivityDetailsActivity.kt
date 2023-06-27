@@ -49,7 +49,5 @@ class ActivityDetailsActivity : AppCompatActivity() {
                 carousel.addData(CarouselItem(imageUrl = image.url))
             }
         }
-
-        // Set other details in a similar manner
     }
 }

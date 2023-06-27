@@ -13,6 +13,8 @@
 
     <!-- Notification Preferences -->
     <string name="notification_title">Notification period</string>
+    <string name="notification_preference_key" translatable="false">notification</string>
+    <string name="notification_preference_default" translatable="false">2</string>
     <string name="notifications_off">Off</string>
     <string name="notifications_hour_before">Hour before</string>
     <string name="notifications_day_before">Day before</string>

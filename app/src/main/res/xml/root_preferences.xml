@@ -5,17 +5,17 @@
             app:defaultValue="@string/language_preference_default"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
-            app:key="language"
+            app:key="@string/language_preference_key"
             app:title="@string/language_title"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/notification_settings_title" app:icon="@drawable/notifications">
         <ListPreference
-            app:defaultValue="day_before"
+            app:defaultValue="@string/notification_preference_default"
             app:entries="@array/notification_entries"
             app:entryValues="@array/notification_values"
-            app:key="notification"
+            app:key="@string/notification_preference_key"
             app:title="@string/notification_title"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>

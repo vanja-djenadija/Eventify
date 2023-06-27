@@ -54,7 +54,6 @@ class ActivityAdapter(
         var categoryName = EventifyDatabase.getInstance(context).getCategoryDao()
             .getCategoryNameById(item.categoryId)
         holder.eventCategory.text = categoryName
-        Log.i("DOGAĐAJ", categoryName)
     }
 
     override fun getItemCount(): Int {
