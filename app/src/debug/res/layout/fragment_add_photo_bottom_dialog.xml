@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/dp_16"
         android:gravity="center"
         android:text="@string/bottom_sheet_option_heading"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
     <TextView
         android:id="@+id/tv_btn_add_photo_camera"
@@ -22,12 +22,11 @@
         android:layout_height="@dimen/dp_48"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
-        android:backgroundTint="@android:color/white"
         android:drawablePadding="@dimen/dp_32"
         android:drawableStart="@drawable/add_a_photo"
         android:gravity="start|center_vertical"
         android:text="@string/bottom_sheet_option_camera"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
     <TextView
         android:id="@+id/tv_btn_add_photo_gallery"
@@ -35,12 +34,11 @@
         android:layout_height="@dimen/dp_48"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
-        android:backgroundTint="@android:color/white"
         android:drawablePadding="@dimen/dp_32"
         android:drawableStart="@drawable/gallery"
         android:gravity="start|center_vertical"
         android:text="@string/bottom_sheet_option_gallery"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
     <TextView
         android:id="@+id/tv_btn_add_photo_url"
@@ -48,11 +46,10 @@
         android:layout_height="@dimen/dp_48"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
-        android:backgroundTint="@android:color/white"
         android:drawablePadding="@dimen/dp_32"
         android:drawableStart="@drawable/internet"
         android:gravity="start|center_vertical"
         android:text="@string/bottom_sheet_option_url"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
 </LinearLayout>
