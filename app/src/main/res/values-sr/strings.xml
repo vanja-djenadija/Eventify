@@ -18,10 +18,8 @@
     <string name="notifications_day_before">Dan prije</string>
     <string name="notifications_week_before">Sedmica prije</string>
 
-    <string name="search">Pretraga</string>
     <string name="add_event">Novi događaj</string>
     <string name="pick_date" >Izaberi datum</string>
-    <string name="pick_time">Izaberi vrijeme</string>
     <string name="pick_location">Izaberi lokaciju</string>
     <string name="add_photo">Dodaj fotografiju</string>
 
@@ -36,7 +34,6 @@
     <string name="description">Opis</string>
     <string name="activity_added_successfully">Uspješno dodana aktivnost</string>
     <string name="field_is_required">Polje je obavezno</string>
-    <string name="select_category">Izaberi kategoriju</string>
     <string name="search_hint">"Pretraga"</string>
     <string name="internet_connection_not_available">Internet povezanost nije dostupna</string>
     <string name="there_are_no_activities">Nema aktivnosti.</string>

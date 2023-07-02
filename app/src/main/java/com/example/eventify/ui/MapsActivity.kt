@@ -1,4 +1,4 @@
-package com.example.eventify
+package com.example.eventify.ui
 
 import android.app.Activity
 import android.content.Context
@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.eventify.R
 import com.example.eventify.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

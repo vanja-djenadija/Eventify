@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_calendar, R.id.navigation_home, R.id.navigation_settings
@@ -64,8 +64,7 @@ class MainActivity : AppCompatActivity() {
         // Notifications
         notificationHelper = NotificationHelper(this)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
-        val optionString = sharedPreferences.getString("notification", "2")
-        val option: NotificationOption = when (optionString) {
+        val option: NotificationOption = when (sharedPreferences.getString("notification", "2")) {
             "0" -> NotificationOption.OFF
             "1" -> NotificationOption.HOUR_BEFORE
             "2" -> NotificationOption.DAY_BEFORE
@@ -115,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     resources.getString(R.string.notification_preference_default)
                 )
                 val option: NotificationOption =
-                    NotificationOption.valueOf(optionString!!.toUpperCase())
+                    NotificationOption.valueOf(optionString!!.uppercase())
                 if (option !== NotificationOption.OFF) {
                     sendNotification(option)
                 }

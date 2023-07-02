@@ -20,10 +20,8 @@
     <string name="notifications_day_before">Day before</string>
     <string name="notifications_week_before">Week before</string>
 
-    <string name="search">Search</string>
     <string name="add_event">Add event</string>
     <string name="pick_date">Pick date</string>
-    <string name="pick_time">Pick time</string>
     <string name="pick_location">Pick location</string>
     <string name="add_photo">Add photo</string>
 
@@ -40,7 +38,6 @@
     <string name="description">Description</string>
     <string name="activity_added_successfully">Activity added successfully</string>
     <string name="field_is_required">Field is required</string>
-    <string name="select_category">Select category</string>
     <string name="search_hint">"Search "</string>
     <string name="internet_connection_not_available">Internet connection not available</string>
     <string name="there_are_no_activities">There are no activities.</string>

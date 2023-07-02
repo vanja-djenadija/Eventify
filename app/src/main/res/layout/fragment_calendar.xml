@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:padding="@dimen/dp_16"
     tools:context=".ui.calendar.CalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +33,6 @@
             app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/calendarScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_navigation_calendar"

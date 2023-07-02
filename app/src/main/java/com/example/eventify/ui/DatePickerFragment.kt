@@ -1,4 +1,4 @@
-package com.example.eventify
+package com.example.eventify.ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog

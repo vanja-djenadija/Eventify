@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eventify.AddActivity
+import com.example.eventify.ui.AddActivity
 import com.example.eventify.databinding.FragmentHomeBinding
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.model.Activity

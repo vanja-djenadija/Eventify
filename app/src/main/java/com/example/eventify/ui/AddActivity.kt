@@ -1,4 +1,4 @@
-package com.example.eventify
+package com.example.eventify.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.eventify.AddPhotoBottomDialogFragment
+import com.example.eventify.R
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.dao.CategoryDao
 import com.example.eventify.db.model.Activity
@@ -118,49 +120,45 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun addActivity(view: View) {
-        val title = findViewById<TextInputEditText>(R.id.editTextTitle).text.toString().trim()
-        val description =
-            findViewById<TextInputEditText>(R.id.editTextDescription).text.toString().trim()
-        val location =
-            findViewById<MaterialTextView>(R.id.pickLocationTextView).text.toString().trim()
-        val time = findViewById<MaterialTextView>(R.id.pickTimeTextView).text.toString().trim()
-        val date = findViewById<MaterialTextView>(R.id.pickDateTextView).text.toString().trim()
+        val editTextTitle = findViewById<TextInputEditText>(R.id.editTextTitle)
+        val editTextDescription = findViewById<TextInputEditText>(R.id.editTextDescription)
+        val pickLocationTextView = findViewById<MaterialTextView>(R.id.pickLocationTextView)
+        val pickTimeTextView = findViewById<MaterialTextView>(R.id.pickTimeTextView)
+        val pickDateTextView = findViewById<MaterialTextView>(R.id.pickDateTextView)
+
+        val title = editTextTitle.text.toString().trim()
+        val description = editTextDescription.text.toString().trim()
+        val location = pickLocationTextView.text.toString().trim()
+        val time = pickTimeTextView.text.toString().trim()
+        val date = pickDateTextView.text.toString().trim()
         val category = findViewById<Spinner>(R.id.activityType).selectedItem
         val categoryId = categoryDao.getCategoryIdByName(category as String)
+
         if (title.isEmpty()) {
-            findViewById<TextInputEditText>(R.id.editTextTitle).error =
-                getString(R.string.field_is_required)
+            editTextTitle.error = getString(R.string.field_is_required)
             return
         }
         if (description.isEmpty()) {
-            findViewById<TextInputEditText>(R.id.editTextDescription).error =
-                getString(R.string.field_is_required)
+            editTextDescription.error = getString(R.string.field_is_required)
             return
         }
         if (date.isEmpty()) {
-            findViewById<MaterialTextView>(R.id.pickDateTextView).error =
-                getString(R.string.field_is_required)
+            pickDateTextView.error = getString(R.string.field_is_required)
             return
         } else {
-            findViewById<MaterialTextView>(R.id.pickDateTextView).error = null
+            pickDateTextView.error = null
         }
         if (time.isEmpty()) {
-            findViewById<MaterialTextView>(R.id.pickTimeTextView).error =
-                getString(R.string.field_is_required)
+            pickTimeTextView.error = getString(R.string.field_is_required)
             return
         } else {
-            findViewById<MaterialTextView>(R.id.pickTimeTextView).error = null
-        }
-        if (category == null) {
-            Toast.makeText(this, getString(R.string.select_category), Toast.LENGTH_SHORT).show()
-            return
+            pickTimeTextView.error = null
         }
         if (location.isEmpty()) {
-            findViewById<MaterialTextView>(R.id.pickLocationTextView).error =
-                getString(R.string.field_is_required)
+            pickLocationTextView.error = getString(R.string.field_is_required)
             return
         } else {
-            findViewById<MaterialTextView>(R.id.pickLocationTextView).error = null
+            pickLocationTextView.error = null
         }
 
         // Create a new activity object
