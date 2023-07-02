@@ -5,8 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -25,18 +23,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 
 
-class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
+class AddPhotoBottomDialogFragment(private val carousel: ImageCarousel) : BottomSheetDialogFragment() {
 
     private lateinit var photoUri: Uri
     private val REQUEST_IMAGE_CAPTURE = 123
 
-    private lateinit var carousel: ImageCarousel
     private lateinit var startGallery: ActivityResultLauncher<Intent>
     private lateinit var currentPhotoPath: String
     private var photoFile: File? = null
@@ -50,6 +46,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
             // Handle permission denied
         }
     }
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -103,20 +100,21 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         return view
     }
 
-    companion object {
 
-        @Volatile
-        private var addPhotoBottomDialogFragment: AddPhotoBottomDialogFragment? = null
-
-        fun getInstance(carousel: ImageCarousel): AddPhotoBottomDialogFragment {
-            return addPhotoBottomDialogFragment ?: synchronized(this) {
-                var instance = AddPhotoBottomDialogFragment()
-                instance.carousel = carousel
-                addPhotoBottomDialogFragment = instance
-                instance
-            }
-        }
-    }
+    /* companion object {
+ 
+         @Volatile
+         private var addPhotoBottomDialogFragment: AddPhotoBottomDialogFragment? = null
+ 
+         fun getInstance(carousel: ImageCarousel): AddPhotoBottomDialogFragment {
+             return addPhotoBottomDialogFragment ?: synchronized(this) {
+                 var instance = AddPhotoBottomDialogFragment()
+                 instance.carousel = carousel
+                 addPhotoBottomDialogFragment = instance
+                 instance
+             }
+         }
+     }*/
 
     /* Uplaoding image from Camera */
 

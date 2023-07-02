@@ -119,8 +119,7 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun showAddPhotoBottomDialog(view: View) {
-        val addPhotoBottomDialogFragment: AddPhotoBottomDialogFragment =
-            AddPhotoBottomDialogFragment.getInstance(carousel)
+        val addPhotoBottomDialogFragment = AddPhotoBottomDialogFragment(carousel)
         addPhotoBottomDialogFragment.show(
             supportFragmentManager, "add_photo_dialog_fragment"
         )
