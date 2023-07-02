@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:contentDescription="@string/pick_date"
+                android:hint="@string/pick_date"
                 android:drawableStart="@drawable/date"
                 android:drawablePadding="@dimen/dp_8" />
 
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:contentDescription="@string/pick_date"
+                android:hint="@string/pick_date"
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="@dimen/dp_8" />
         </LinearLayout>
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:contentDescription="@string/pick_location"
+            android:hint="@string/pick_location"
             android:drawableStart="@drawable/location"
             android:drawablePadding="@dimen/dp_8"
             app:layout_constraintEnd_toEndOf="parent"

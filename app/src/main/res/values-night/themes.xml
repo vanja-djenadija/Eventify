@@ -17,6 +17,5 @@
         <item name="colorOnSurfaceVariant">@color/orange_700</item>
         <item name="android:drawableTint">@color/white</item>
         <item name="iconTint">@color/white</item>
-        <item name="android:tint">@color/white</item>
     </style>
 </resources>
