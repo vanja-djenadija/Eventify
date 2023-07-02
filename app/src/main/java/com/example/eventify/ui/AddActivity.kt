@@ -1,6 +1,9 @@
 package com.example.eventify.ui
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.eventify.AddPhotoBottomDialogFragment
 import com.example.eventify.R
 import com.example.eventify.db.EventifyDatabase
@@ -20,7 +24,10 @@ import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
+import java.io.File
+import java.io.FileOutputStream
 
 
 class AddActivity : AppCompatActivity() {
@@ -171,8 +178,16 @@ class AddActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val activityId = activityDao.insert(activity)
             for (carouselItem in carousel.getData()!!) {
-                val image = carouselItem.imageUrl?.let { Image.createImage(it, activityId) }
-                if (image != null) {
+                val imageUrl = carouselItem.imageUrl
+                val bitmap = if (imageUrl != null) {
+                    loadImageFromUri(imageUrl)
+                } else {
+                    null
+                }
+                if (bitmap != null) {
+                    // Convert bitmap to a file and save it to the database
+                    val imagePath = saveBitmapToFile(bitmap)
+                    val image = Image.createImage(imagePath, activityId)
                     imageDao.insert(image)
                 }
             }
@@ -183,5 +198,40 @@ class AddActivity : AppCompatActivity() {
         // End activity
         finish()
     }
+
+    private suspend fun loadImageFromUri(imageUrl: String): Bitmap? = withContext(Dispatchers.IO) {
+        try {
+            if (imageUrl.startsWith("https")) {
+                val requestBuilder = Glide.with(applicationContext)
+                    .asBitmap()
+                    .load(imageUrl)
+                val target = requestBuilder.submit().get()
+                return@withContext target
+            } else {
+                val uri = Uri.parse(imageUrl)
+                val inputStream = applicationContext.contentResolver.openInputStream(uri)
+                val options = BitmapFactory.Options()
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888
+                BitmapFactory.decodeStream(inputStream, null, options)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    private fun saveBitmapToFile(bitmap: Bitmap): String {
+        // Save the bitmap to a file and return the file path
+        // You can use any method to save the bitmap, such as creating a file in the app's internal storage directory
+        // Make sure to handle file operations and permissions accordingly
+        val file = File(applicationContext.filesDir, System.currentTimeMillis().toString() + ".jpg")
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+        return file.absolutePath
+    }
+
 
 }

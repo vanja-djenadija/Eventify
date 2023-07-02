@@ -79,5 +79,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:layout_marginBottom="@dimen/dp_8" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabDeleteActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/delete_activity"
+            android:src="@drawable/delete"
+            android:backgroundTint="@color/orange_500"/>
     </LinearLayout>
 </ScrollView>

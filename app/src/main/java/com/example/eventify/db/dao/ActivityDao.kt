@@ -1,6 +1,7 @@
 package com.example.eventify.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -16,6 +17,9 @@ interface ActivityDao {
 
     @Update
     fun update(activity: Activity)
+
+    @Delete
+    fun delete(activity: Activity)
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_ACTIVITY + " ORDER BY time ASC")
     fun getAllActivities(): List<Activity>

@@ -2,11 +2,12 @@ package com.example.eventify
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -24,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -31,6 +33,7 @@ import java.util.Date
 
 class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
 
+    private lateinit var photoUri: Uri
     private val REQUEST_IMAGE_CAPTURE = 123
 
     private lateinit var carousel: ImageCarousel
@@ -63,7 +66,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
 
         startGallery =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
+                if (result.resultCode == android.app.Activity.RESULT_OK) {
                     val intent = result.data
                     if (intent != null) {
                         val selectedImages =
@@ -133,7 +136,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
             photoFile = createImageFile()
-            val photoUri = FileProvider.getUriForFile(
+            photoUri = FileProvider.getUriForFile(
                 requireContext(),
                 "com.example.eventify.fileprovider",
                 photoFile!!
@@ -148,33 +151,21 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
     private fun createImageFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        //val storageDir = requireContext().filesDir;
         val imageFileName = "JPEG_${timeStamp}_"
-        val imageFile = File.createTempFile(
+        return File.createTempFile(
             imageFileName,
             ".jpg",
             storageDir
         )
-        val values = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, imageFileName)
-            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-            put(MediaStore.Images.Media.DATA, imageFile.absolutePath)
-        }
-
-        val resolver = requireActivity().contentResolver
-        resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        currentPhotoPath = imageFile.absolutePath
-
-        return imageFile
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val file = File(currentPhotoPath)
-            carousel.addData(CarouselItem(imageUrl = file.absolutePath))
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == android.app.Activity.RESULT_OK) {
+            carousel.addData(CarouselItem(imageUrl = photoUri.toString()))
         }
     }
-
 
     /* Uplaoding image from Gallery */
     private fun openGallery() {
@@ -187,8 +178,7 @@ class AddPhotoBottomDialogFragment : BottomSheetDialogFragment() {
 
     /* Uplaoding image from URL */
     private fun showUrlInputDialog() {
-        val context: Context =
-            requireContext()  // Replace 'this' with the appropriate context reference
+        val context: Context = requireContext()
 
         val inputEditText = EditText(context)
         inputEditText.hint = "Enter Image URL"

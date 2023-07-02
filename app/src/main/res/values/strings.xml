@@ -47,5 +47,8 @@
     <string name="activity_description">Activity Description</string>
     <string name="activity_date">Activity Date</string>
     <string name="activity_location">Activity Location</string>
-
+    <string name="delete_activity">Delete activity</string>
+    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="answer_positive">Yes</string>
+    <string name="answer_negative">No </string>
 </resources>

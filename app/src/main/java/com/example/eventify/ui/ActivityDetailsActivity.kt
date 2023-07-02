@@ -5,6 +5,7 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventify.R
 import com.example.eventify.db.EventifyDatabase
@@ -16,6 +17,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.chip.Chip
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.IOException
@@ -60,6 +65,36 @@ class ActivityDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        val fabDeleteActivity: FloatingActionButton = findViewById(R.id.fabDeleteActivity)
+        fabDeleteActivity.setOnClickListener {
+            showDeleteConfirmationDialog()
+        }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage(getString(R.string.delete_question))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.answer_positive)) { dialog, _ ->
+                deleteActivity()
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.answer_negative)) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alert = dialogBuilder.create()
+        alert.show()
+    }
+
+    private fun deleteActivity() {
+        val activityDao = EventifyDatabase.getInstance(baseContext).getActivityDao()
+        // Use a coroutine to insert the activity in a non-blocking way
+        CoroutineScope(Dispatchers.IO).launch {
+            activityDao.delete(activity)
+        }
+        finish()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

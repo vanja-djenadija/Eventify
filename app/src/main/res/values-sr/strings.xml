@@ -43,4 +43,8 @@
     <string name="activity_description">Opis aktivnosti</string>
     <string name="activity_date">Datum aktivnosti</string>
     <string name="activity_location">Mjesto aktivnosti</string>
+    <string name="delete_activity">Obriši aktivnost</string>
+    <string name="delete_question">Jeste li sigurni da želite da obrišete?</string>
+    <string name="answer_positive">Da</string>
+    <string name="answer_negative">Ne</string>
 </resources>
