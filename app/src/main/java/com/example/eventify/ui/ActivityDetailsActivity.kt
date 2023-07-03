@@ -46,7 +46,7 @@ class ActivityDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationTextView.text = activity.location
 
         val dateTextView: TextView = findViewById(R.id.dateTextView)
-        dateTextView.text = activity.time
+        dateTextView.text = activity.time.toString()
 
         val categoryChip: Chip = findViewById(R.id.categoryChip)
         categoryChip.text = EventifyDatabase.getInstance(this).getCategoryDao()

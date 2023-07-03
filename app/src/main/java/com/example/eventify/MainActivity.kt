@@ -71,11 +71,6 @@ class MainActivity : AppCompatActivity() {
             "3" -> NotificationOption.WEEK_BEFORE
             else -> NotificationOption.OFF // Set a default value for invalid preferences
         }
-
-        //val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
-        //val optionString = sharedPreferences.getString("notification", "2")
-        //Log.i("ETF", optionString.toString())
-        //val option: NotificationOption = NotificationOption.valueOf(optionString!!.toUpperCase())
         if (option !== NotificationOption.OFF) {
             if (hasNotificationPermission()) {
                 sendNotification(option)
@@ -126,12 +121,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun sendNotification(option: NotificationOption) {
         val upcomingActivities = getUpcomingActivities(option)
-        Log.i("UPCOMING", upcomingActivities.toString())
         for (activity in upcomingActivities) {
             val title = activity.name
             val message = activity.time
-
-            notificationHelper.showNotification(title, message)
+            notificationHelper.showNotification(title, message.toString())
         }
     }
 
@@ -167,9 +160,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUpcomingActivities(option: NotificationOption): List<Activity> {
 
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
         val calendar = Calendar.getInstance()
         val startDate = Calendar.getInstance().time
-        Log.i("ETF", SimpleDateFormat("dd-MM-yyyy HH:mm").format(startDate))
         when (option) {
             NotificationOption.HOUR_BEFORE -> calendar.add(Calendar.HOUR, 1)
             NotificationOption.DAY_BEFORE -> calendar.add(Calendar.DAY_OF_YEAR, 1)
@@ -177,25 +170,12 @@ class MainActivity : AppCompatActivity() {
             else -> {}
         }
         val endDate = calendar.time
-        Log.i("ETF", SimpleDateFormat("dd-MM-yyyy HH:mm").format(endDate))
+        Log.i("ETF", format.format(endDate))
         val upcomingActivites: List<Activity> =
             eventifyDatabase.getActivityDao().getActivitiesByDateRange(
-                SimpleDateFormat("dd-MM-yyyy HH:mm").format(startDate),
-                SimpleDateFormat("dd-MM-yyyy HH:mm").format(endDate)
+                format.format(startDate),
+                format.format(endDate)
             )
-        for (activ in upcomingActivites) {
-            Log.i("ETF", activ.toString())
-        }
         return upcomingActivites
     }
-
-    fun handleNotificationPreferenceChange(newOption: NotificationOption) {
-        Log.i("ETF", "handleNotificationPreferenceChange")
-        if (hasNotificationPermission()) {
-            sendNotification(newOption)
-        } else {
-            requestNotificationPermission()
-        }
-    }
-
 }

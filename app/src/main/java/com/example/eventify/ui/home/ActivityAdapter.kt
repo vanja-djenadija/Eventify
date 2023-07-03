@@ -49,7 +49,7 @@ class ActivityAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.eventTitle.text = item.name
-        holder.eventDateTime.text = item.time
+        holder.eventDateTime.text = item.time.toString()
         holder.eventLocation.text = item.location
         var categoryName = EventifyDatabase.getInstance(context).getCategoryDao()
             .getCategoryNameById(item.categoryId)

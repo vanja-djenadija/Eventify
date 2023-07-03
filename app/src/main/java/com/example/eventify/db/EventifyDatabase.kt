@@ -14,7 +14,7 @@ import com.example.eventify.db.model.Image
 import com.example.eventify.util.Constants
 import com.example.eventify.util.DateRoomConverter
 
-@Database(entities = [Activity::class, Category::class, Image::class], version = 2)
+@Database(entities = [Activity::class, Category::class, Image::class], version = 4)
 @TypeConverters(DateRoomConverter::class)
 abstract class EventifyDatabase : RoomDatabase() {
 

@@ -169,7 +169,11 @@ class AddActivity : AppCompatActivity() {
 
         // Create a new activity object
         val activity = Activity.createActivity(
-            title, description, location, "$date $time", categoryId
+            title,
+            description,
+            location,
+            "$date $time",
+            categoryId
         ) // TODO: date format, add images for leisure
         val activityDao = EventifyDatabase.getInstance(baseContext).getActivityDao()
         val imageDao = EventifyDatabase.getInstance(baseContext).getImageDao()

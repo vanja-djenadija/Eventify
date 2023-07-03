@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.eventify.util.Constants
 import java.io.Serializable
+import java.util.Date
 
 @Entity(
     tableName = Constants.TABLE_NAME_ACTIVITY,

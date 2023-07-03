@@ -2,6 +2,7 @@ package com.example.eventify.ui.calendar
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eventify.ui.AddActivity
 import com.example.eventify.databinding.FragmentCalendarBinding
 import com.example.eventify.db.EventifyDatabase
 import com.example.eventify.db.model.Activity
 import com.example.eventify.ui.ActivityDetailsActivity
+import com.example.eventify.ui.AddActivity
 import com.example.eventify.ui.home.ActivityAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,7 @@ class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
     private var selectedDate: String =
-        SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().time)
+        SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
     private lateinit var textViewNoActivities: TextView
 
     // This property is only valid between onCreateView and
@@ -61,7 +62,8 @@ class CalendarFragment : Fragment() {
         /* CalendarView */
         val calendarView: CalendarView = binding.calendarView
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            selectedDate = String.format("%02d-%02d-%04d", dayOfMonth, month + 1, year)
+            selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+            Log.i("ETF", selectedDate)
             refreshActivities(selectedDate)
         }
 
