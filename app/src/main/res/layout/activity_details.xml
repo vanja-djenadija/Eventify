@@ -38,7 +38,9 @@
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
+            android:drawableStart="@drawable/description"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             tools:text="@string/activity_description" />
 
@@ -51,6 +53,8 @@
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/date"
+            android:drawablePadding="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             tools:text="@string/activity_date" />
 
@@ -63,6 +67,8 @@
             android:id="@+id/locationTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/location"
+            android:drawablePadding="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             tools:text="@string/activity_location" />
 

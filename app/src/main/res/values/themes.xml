@@ -17,5 +17,6 @@
         <item name="colorOnSurfaceVariant">@color/orange_700</item>
         <item name="android:drawableTint">@color/black</item>
         <item name="iconTint">@color/black</item>
+        <item name="android:textSize">@dimen/sp_14</item>
     </style>
 </resources>
