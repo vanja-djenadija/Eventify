@@ -51,13 +51,12 @@ Eventify app is a free and open source project developed by me. Any contribution
 
 ## Screenshots
 
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/376fa8df-e2a2-48c2-abd9-de0ea8d13e48" align="left" width="250" hspace="10" vspace="10">
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/859ecf26-fdc5-43cb-953f-9c1097ce0e0b" align="left" width="250" hspace="10" vspace="10">
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/69dced87-32e8-45f1-ba31-b987389b316f" align="left" width="250" hspace="10" vspace="10">
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/8bcd5ce6-37e5-4433-bf8c-06bb6a9eff80" align="left" width="250" hspace="10" vspace="10">
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/71016457-16f5-4ebc-9d4d-6e2e483012d3" align="left" width="250" hspace="10" vspace="10">
 
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/f98a70e4-5eac-44bf-aab2-cf8406c8f64c" align="left" width="250" hspace="10" vspace="10">
-<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/b848068b-595d-47ec-a2ee-01c1d912049a" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/d3293c67-575b-4738-98d0-e42b9c013f61" align="left" width="250" hspace="10" vspace="10" alt="Add event">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/3e150076-6d02-4479-b103-f74160c3735b" align="left" width="250" hspace="10" vspace="10" alt="Activity details">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/418b9320-a79a-454b-a288-8a7c66d8fbe9" align="left" width="250" hspace="10" vspace="10" alt="Home">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/fa7cab1f-39bd-4e59-9796-c3466c78034f" align="left" width="250" hspace="10" vspace="10" alt="Calendar">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/175e3d31-0dae-41a6-98ee-4e86f63ee057" align="left" width="250" hspace="10" vspace="10" alt="Settings">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/058e8117-abde-467e-8011-9102b1abd948" align="left" width="250" hspace="10" vspace="10" alt="Notifications">
 
 
