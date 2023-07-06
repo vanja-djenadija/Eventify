@@ -1,0 +1,54 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_8"
+    android:layout_marginTop="@dimen/dp_8"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_56"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:gravity="center"
+        android:text="@string/bottom_sheet_option_heading"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_btn_add_photo_camera"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:drawablePadding="@dimen/dp_32"
+        android:drawableStart="@drawable/add_a_photo"
+        android:gravity="start|center_vertical"
+        android:text="@string/bottom_sheet_option_camera"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_btn_add_photo_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:drawablePadding="@dimen/dp_32"
+        android:drawableStart="@drawable/gallery"
+        android:gravity="start|center_vertical"
+        android:text="@string/bottom_sheet_option_gallery"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_btn_add_photo_url"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:drawablePadding="@dimen/dp_32"
+        android:drawableStart="@drawable/internet"
+        android:gravity="start|center_vertical"
+        android:text="@string/bottom_sheet_option_url"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>
