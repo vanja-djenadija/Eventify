@@ -7,15 +7,15 @@ plugins {
 
 
 android {
-    namespace 'com.example.eventify'
+    namespace 'org.unibl.etf.mr.eventify'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.eventify"
+        applicationId "org.unibl.etf.mr.eventify"
         minSdk 24
         targetSdk 33
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 101
+        versionName "1.0.1"
         resConfigs "en", "sr"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -29,7 +29,7 @@
         tools:targetApi="31">
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.eventify.fileprovider"
+            android:authorities="org.unibl.etf.mr.eventify.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -53,7 +53,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name="org.unibl.etf.mr.eventify.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,15 +61,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AddActivity"
+            android:name="org.unibl.etf.mr.eventify.ui.AddActivity"
             android:exported="false"
             android:label="@string/add_event" />
         <activity
-            android:name=".ui.MapsActivity"
+            android:name="org.unibl.etf.mr.eventify.ui.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".ui.ActivityDetailsActivity"
+            android:name="org.unibl.etf.mr.eventify.ui.ActivityDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_details" />
         <!--<meta-data

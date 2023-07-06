@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:padding="@dimen/dp_16"
-    tools:context=".ui.ActivityDetailsActivity">
+    tools:context="org.unibl.etf.mr.eventify.ui.ActivityDetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
