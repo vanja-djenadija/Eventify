@@ -172,7 +172,6 @@ class MainActivity : AppCompatActivity() {
             else -> {}
         }
         val endDate = calendar.time
-        Log.i("ETF", format.format(endDate))
         val upcomingActivites: List<Activity> =
             eventifyDatabase.getActivityDao().getActivitiesByDateRange(
                 format.format(startDate),

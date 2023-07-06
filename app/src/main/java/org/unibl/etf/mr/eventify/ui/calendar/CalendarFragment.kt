@@ -63,7 +63,6 @@ class CalendarFragment : Fragment() {
         val calendarView: CalendarView = binding.calendarView
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
-            Log.i("ETF", selectedDate)
             refreshActivities(selectedDate)
         }
 
