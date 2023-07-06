@@ -36,12 +36,14 @@ The android app lets you:
 
 ## Screenshots
 
-[<img src="/readme/Wallabag%20Reading%20List.png" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Reading%20List.png)
-[<img src="/readme/Wallabag%20Article%20View.png" align="center"
-width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/b848068b-595d-47ec-a2ee-01c1d912049a" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/8bcd5ce6-37e5-4433-bf8c-06bb6a9eff80" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/71016457-16f5-4ebc-9d4d-6e2e483012d3" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/376fa8df-e2a2-48c2-abd9-de0ea8d13e48" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/f98a70e4-5eac-44bf-aab2-cf8406c8f64c" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/859ecf26-fdc5-43cb-953f-9c1097ce0e0b" align="left" width="250" hspace="10" vspace="10">
+<img src="https://github.com/vanja-djenadija/Eventify/assets/130909026/69dced87-32e8-45f1-ba31-b987389b316f" align="left" width="250" hspace="10" vspace="10">
+
 
 ## Permissions
 
