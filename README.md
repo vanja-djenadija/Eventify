@@ -1,18 +1,18 @@
 # Eventify - Android App 
 
 <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" align="left"
-width="200" hspace="10" vspace="10">
+width="200" >
 
 Eventify is a simple event planning app made as part of a faculty project.
 
 Eventify is available on the Google Play Store.
 
 <p align="left">
-<a href="https://play.google.com/store/apps/details?id=org.unibl.etf.mr.eventify">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>  
+    <a href="https://play.google.com/store/apps/details?id=org.unibl.etf.mr.eventify">
+        <img alt="Get it on Google Play"
+            height="80"
+            src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+    </a>  
 </p>
 
 
@@ -46,7 +46,7 @@ Eventify requires the following permissions:
 ## Contributing
 
 Eventify app is a free and open source project developed by me. Any contributions are welcome. Here are a few ways you can help:
- * [Report bugs and make suggestions.](https://github.com/eventify/android-app/issues)
+ * [Report bugs and make suggestions.](https://github.com/vanja-djenadija/Eventify/issues)
  * Write some code. Please follow the code style used in the project to make a review process faster.
 
 ## Screenshots
